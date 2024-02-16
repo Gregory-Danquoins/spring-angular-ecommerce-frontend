@@ -7,10 +7,21 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from './service/product.service';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
+import { SearchComponent } from './components/search/search.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CartStatusComponent } from './components/cart-status/cart-status.component';
 
 @NgModule({
-  declarations: [AppComponent, ProductListComponent, ProductCategoryMenuComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  declarations: [
+    AppComponent,
+    ProductListComponent,
+    ProductCategoryMenuComponent,
+    SearchComponent,
+    ProductDetailsComponent,
+    CartStatusComponent,
+  ],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgbModule],
   providers: [ProductService],
   bootstrap: [AppComponent],
 })
