@@ -517,10 +517,23 @@
             <div class="col-md-9">
               <div class="input-space">
                 <select formControlName="expirationMonth">
+                  <option></option>
                   <option *ngFor="let month of creditCardMonths">
                     {{ month }}
                   </option>
                 </select>
+                <div
+                  *ngIf="
+                    creditCardExpirationMonth?.invalid &&
+                    (creditCardExpirationMonth?.dirty ||
+                      creditCardExpirationMonth?.touched)
+                  "
+                  class="alert alert-danger mt-1"
+                >
+                  <div *ngIf="creditCardExpirationMonth?.errors?.required">
+                    Expiration month is required
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -533,10 +546,23 @@
                   formControlName="expirationYear"
                   (change)="handleMonthsAndYears()"
                 >
+                  <option value=""></option>
                   <option *ngFor="let year of creditCardYears">
                     {{ year }}
                   </option>
                 </select>
+                <div
+                  *ngIf="
+                    creditCardExpirationYear?.invalid &&
+                    (creditCardExpirationYear?.dirty ||
+                      creditCardExpirationYear?.touched)
+                  "
+                  class="alert alert-danger mt-1"
+                >
+                  <div *ngIf="creditCardExpirationYear?.errors?.required">
+                    Expiration year is required
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -13,7 +13,7 @@
           </tr>
 
           <tr *ngFor="let orderHistory of orderHistoryList">
-            <td>{{ orderHistory.oderTrackingNumber }}</td>
+            <td>{{ orderHistory.orderTrackingNumber }}</td>
             <td>{{ orderHistory.totalPrice | currency : "USD" }}</td>
             <td>{{ orderHistory.totalQuantity }}</td>
             <td>{{ orderHistory.dateCreated | date : "medium" }}</td>

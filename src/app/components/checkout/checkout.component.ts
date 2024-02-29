@@ -224,6 +224,14 @@ export class CheckoutComponent implements OnInit {
     return this.checkoutFormGroup.get('creditCard.securityCode');
   }
 
+  get creditCardExpirationMonth() {
+    return this.checkoutFormGroup.get('creditCard.expirationMonth');
+  }
+
+  get creditCardExpirationYear() {
+    return this.checkoutFormGroup.get('creditCard.expirationYear');
+  }
+
   copyShippingAddressToBillingAddress(event) {
     if (event.target.checked) {
       this.checkoutFormGroup.controls.billingAddress.setValue(
