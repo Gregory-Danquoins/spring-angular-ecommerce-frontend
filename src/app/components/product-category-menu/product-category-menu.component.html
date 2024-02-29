@@ -3,9 +3,7 @@
     <ul class="list-unstyled navbar-list">
       <li *ngFor="let productCategory of productCategories">
         <a
-          routerLink="/category/{{ productCategory.id }}/{{
-            productCategory.categoryName
-          }}"
+          routerLink="/category/{{ productCategory.id }}"
           routerLinkActive="active-link"
         >
           {{ productCategory.categoryName }}
