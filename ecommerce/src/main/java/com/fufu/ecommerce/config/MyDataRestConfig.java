@@ -6,19 +6,19 @@ import java.util.Set;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
-import org.springframework.data.rest.core.mapping.HttpMethods;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import com.fufu.ecommerce.entity.Country;
+import com.fufu.ecommerce.entity.Order;
 import com.fufu.ecommerce.entity.Product;
 import com.fufu.ecommerce.entity.ProductCategory;
 import com.fufu.ecommerce.entity.State;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.metamodel.EntityType;
 
@@ -26,6 +26,8 @@ import jakarta.persistence.metamodel.EntityType;
 @Configuration
 public class MyDataRestConfig implements RepositoryRestConfigurer{
 
+    @Value("${allowed.origins}")
+    private String allowedOrigins;
     private EntityManager entityManager;
     private RepositoryRestConfiguration config;
 
@@ -38,11 +40,11 @@ public class MyDataRestConfig implements RepositoryRestConfigurer{
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors){
 
-        HttpMethod[] unsupportedActions = { HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE};
+        HttpMethod[] unsupportedActions = { HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE, HttpMethod.PATCH};
 
-        Class[] protectedClass = {Product.class,ProductCategory.class,Country.class,State.class};
+        Class[] restrictedVerbClass = {Product.class,ProductCategory.class,Country.class,State.class,Order.class};
 
-        for (Class theClass : protectedClass)
+        for (Class theClass : restrictedVerbClass)
         {
             disableHttpMethods(config,unsupportedActions,theClass);
         }
@@ -55,6 +57,7 @@ public class MyDataRestConfig implements RepositoryRestConfigurer{
 
         // call an internal helper method to expose the id
         exposeIds(config);
+        cors.addMapping(config.getBasePath()+"/**").allowedOrigins(allowedOrigins);
     }
 
     private void disableHttpMethods(RepositoryRestConfiguration config,HttpMethod[] methods, Class theClass){
